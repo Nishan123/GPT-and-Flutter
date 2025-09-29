@@ -28,14 +28,41 @@ class DatabaseServices {
     String historyDocId,
   ) async {
     try {
-      await _firestore
-          .collection("chats")
-          .doc(historyDocId)
-          .update({
-            "messages": FieldValue.arrayUnion([newMessage.toMap()]),
-          });
+      await _firestore.collection("chats").doc(historyDocId).update({
+        "messages": FieldValue.arrayUnion([newMessage.toMap()]),
+      });
     } catch (e) {
       debugPrint("Failed to add new message to chat history: $e");
     }
   }
+
+  Stream<List<MessageModel>> getAllChatHistory(String historyId) {
+  try {
+    return _firestore
+        .collection("chats")
+        .doc(historyId)
+        .snapshots()
+        .map((snapshot) {
+      if (snapshot.exists && snapshot.data() != null) {
+        final data = snapshot.data()!;
+        final messagesData = data['messages'] as List<dynamic>? ?? [];
+        
+        return messagesData.map((messageMap) {
+          return MessageModel(
+            messageId: messageMap['messageId'] as String,
+            createdAt: DateTime.fromMillisecondsSinceEpoch(
+              messageMap['createdAt'] as int,
+            ),
+            content: messageMap['content'] as String,
+            isUser: messageMap['isUser'] as bool,
+          );
+        }).toList();
+      }
+      return <MessageModel>[];
+    });
+  } catch (e) {
+    debugPrint("Failed to get chat history: $e");
+    return Stream.value(<MessageModel>[]);
+  }
+}
 }
