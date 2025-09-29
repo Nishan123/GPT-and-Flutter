@@ -1,0 +1,1 @@
+const String gptApi = "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";

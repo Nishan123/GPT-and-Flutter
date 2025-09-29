@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "654109825945",
+    "project_id": "gptxflutter-16b79",
+    "storage_bucket": "gptxflutter-16b79.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:654109825945:android:b8a3c5e4006b56edf05108",
+        "android_client_info": {
+          "package_name": "com.example.gpt_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLDIzO4QtGcX5Jp-hP66hihZCn8V_S5e0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
